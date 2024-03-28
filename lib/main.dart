@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
           // colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
           //make lato text theme from google fonts
-          textTheme: GoogleFonts.latoTextTheme(),
+          fontFamily: 'Lato',
         ),
         home: const HomePage(),
       ),

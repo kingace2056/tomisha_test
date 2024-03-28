@@ -10,6 +10,8 @@ import 'package:tomisha/constants/color_constants.dart';
 import 'package:tomisha/constants/image_constant.dart';
 import 'package:tomisha/utils/screen_util.dart';
 import 'package:tomisha/utils/zig_path.dart';
+import 'package:tomisha/view/deskstep_widget.dart';
+import 'package:tomisha/view/flow_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -87,6 +89,7 @@ class _HomePageState extends State<HomePage> {
                           children: [
                             Text(
                               'Deine Job \nwebsite',
+                              textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontSize: 42.sp, fontWeight: FontWeight.bold),
                             ),
@@ -158,6 +161,13 @@ class _HomePageState extends State<HomePage> {
               DeviceCheck.isMobile(context)
                   ? Container(
                       decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: ColorConstants.dropShadow,
+                              offset: const Offset(0, -2),
+                              blurRadius: 4,
+                            ),
+                          ],
                           color: Colors.white,
                           borderRadius: BorderRadius.only(
                             topLeft: Radius.circular(12.sp),
@@ -170,7 +180,7 @@ class _HomePageState extends State<HomePage> {
                             child: Container(
                               width: 320.sp,
                               height: 40.sp,
-                              margin: EdgeInsets.only(top: 53.sp),
+                              margin: EdgeInsets.only(top: 24.sp),
                               alignment: Alignment.center,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(12),
@@ -197,6 +207,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           Container(
                             width: MediaQuery.of(context).size.width,
+                            margin: EdgeInsets.symmetric(horizontal: 10.sp),
                             child: SingleChildScrollView(
                               scrollDirection: Axis.horizontal,
                               child: Row(
@@ -313,146 +324,31 @@ class _HomePageState extends State<HomePage> {
                           SizedBox(
                             height: 20.sp,
                           ),
-                          Text(
-                            'Drei einfache Schritte zu\ndeinem neuen Job',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                color: ColorConstants.primaryText,
-                                fontSize: 21.sp,
-                                fontWeight: FontWeight.w500),
+                          AnimatedContainer(
+                            curve: Curves.easeIn,
+                            duration: const Duration(milliseconds: 500),
+                            child: Text(
+                              _empTypeIndex == 0
+                                  ? 'Drei einfache Schritte\nzu deinem neuen Job'
+                                  : _empTypeIndex == 1
+                                      ? 'Drei einfache Schritte zu deinem neuen Mitarbeiter'
+                                      : 'Drei einfache Schritte zur Vermittlung neuer Mitarbeiter',
+                              textAlign: TextAlign.center,
+                              style: TextStyle(
+                                  color: ColorConstants.primaryText,
+                                  fontSize: 21.sp,
+                                  fontWeight: FontWeight.w500),
+                            ),
                           ),
-                          Column(
-                            children: [
-                              Container(
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 10.sp, vertical: 10.sp),
-                                child: Column(
-                                  children: [
-                                    SvgPicture.asset(
-                                      ImageConstants.flowerlady,
-                                      height: 114.sp,
-                                    ),
-                                    RichText(
-                                        text: TextSpan(
-                                      children: [
-                                        TextSpan(
-                                          text: '1.',
-                                          style: TextStyle(
-                                            color: ColorConstants.secondaryText,
-                                            fontSize: 130.sp,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        TextSpan(
-                                          text: 'Erstellen dein Lebenslauf',
-                                          style: TextStyle(
-                                            color: ColorConstants.secondaryText,
-                                            fontSize: 15.sp,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      ],
-                                    )),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.only(
-                                    left: 10.sp, top: 10.sp, bottom: 10.sp),
-                                child: Column(
-                                  children: [
-                                    RichText(
-                                        text: TextSpan(
-                                      children: [
-                                        TextSpan(
-                                          text: '2. ',
-                                          style: TextStyle(
-                                            textBaseline:
-                                                TextBaseline.ideographic,
-                                            color: ColorConstants.secondaryText,
-                                            fontSize: 130.sp,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        TextSpan(
-                                          text: 'Erstellen dein Lebenslauf',
-                                          style: TextStyle(
-                                            textBaseline:
-                                                TextBaseline.ideographic,
-                                            color: ColorConstants.secondaryText,
-                                            fontSize: 15.sp,
-                                            fontWeight: FontWeight.w400,
-                                          ),
-                                        ),
-                                      ],
-                                    )),
-                                    SvgPicture.asset(
-                                      ImageConstants.taskmale,
-                                      height: 126.sp,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              Container(
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.only(
-                                    left: 10.sp, top: 10.sp, bottom: 10.sp),
-                                child: Column(
-                                  children: [
-                                    RichText(
-                                      textAlign: TextAlign.start,
-                                      text: TextSpan(
-                                        children: [
-                                          TextSpan(
-                                            text: '3. ',
-                                            style: TextStyle(
-                                              color:
-                                                  ColorConstants.secondaryText,
-                                              fontSize: 130.sp,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          WidgetSpan(
-                                            alignment: PlaceholderAlignment
-                                                .bottom, // Aligns the SizedBox to the bottom
-                                            child: SizedBox(
-                                                height: 20
-                                                    .sp), // Adjust the height as needed for spacing
-                                          ),
-                                          TextSpan(
-                                            text:
-                                                'Mit nur einem Klick bewerben',
-                                            style: TextStyle(
-                                              color:
-                                                  ColorConstants.secondaryText,
-                                              fontSize: 15.sp,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      width: 61.33.sp,
-                                    ),
-                                    Positioned(
-                                      child: SvgPicture.asset(
-                                        ImageConstants.lady,
-                                        height: 114.sp,
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            ],
-                          ),
+                          PathWidget()
                         ],
                       ),
                     )
                   : Padding(
-                      padding: EdgeInsets.only(top: 47.sp, bottom: 55.sp),
+                      padding: EdgeInsets.only(
+                        top: 47.sp,
+                        bottom: 55.sp,
+                      ),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -569,202 +465,7 @@ class _HomePageState extends State<HomePage> {
                     fontWeight: FontWeight.w500),
               ),
               !DeviceCheck.isMobile(context)
-                  ? Stack(
-                      children: [
-                        Column(
-                          children: [
-                            Container(
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 343.sp, vertical: 99.sp),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    children: [
-                                      RichText(
-                                          text: TextSpan(
-                                        children: [
-                                          TextSpan(
-                                            text: '1. ',
-                                            style: TextStyle(
-                                              textBaseline:
-                                                  TextBaseline.ideographic,
-                                              color:
-                                                  ColorConstants.secondaryText,
-                                              fontSize: 130.sp,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          TextSpan(
-                                            text: 'Erstellen dein Lebenslauf',
-                                            style: TextStyle(
-                                              textBaseline:
-                                                  TextBaseline.ideographic,
-                                              color:
-                                                  ColorConstants.secondaryText,
-                                              fontSize: 30.sp,
-                                              fontWeight: FontWeight.w400,
-                                            ),
-                                          ),
-                                        ],
-                                      )),
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    width: 61.33.sp,
-                                  ),
-                                  SvgPicture.asset(
-                                    ImageConstants.flowerlady,
-                                    height: 253.sp,
-                                  )
-                                ],
-                              ),
-                            ),
-                            CustomPaint(
-                              size: Size(
-                                1920.sp,
-                                (1920.sp * 0.19375).toDouble(),
-                              ),
-                              painter: TopcsPaint(),
-                              child: Container(
-                                alignment: Alignment.center,
-                                padding: EdgeInsets.only(
-                                    left: 557.sp, top: 99.sp, bottom: 99.sp),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: [
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        SvgPicture.asset(
-                                          ImageConstants.taskmale,
-                                          height: 250.sp,
-                                        ),
-                                        SizedBox(
-                                          width: 61.33.sp,
-                                        ),
-                                        RichText(
-                                            text: TextSpan(
-                                          children: [
-                                            TextSpan(
-                                              text: '2. ',
-                                              style: TextStyle(
-                                                textBaseline:
-                                                    TextBaseline.ideographic,
-                                                color: ColorConstants
-                                                    .secondaryText,
-                                                fontSize: 130.sp,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            TextSpan(
-                                              text: 'Erstellen dein Lebenslauf',
-                                              style: TextStyle(
-                                                textBaseline:
-                                                    TextBaseline.ideographic,
-                                                color: ColorConstants
-                                                    .secondaryText,
-                                                fontSize: 30.sp,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ],
-                                        )),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Container(
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.only(
-                                  left: 575.sp, top: 99.sp, bottom: 100.sp),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Row(
-                                    crossAxisAlignment: CrossAxisAlignment.end,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      RichText(
-                                        textAlign: TextAlign.start,
-                                        text: TextSpan(
-                                          children: [
-                                            TextSpan(
-                                              text: '3. ',
-                                              style: TextStyle(
-                                                color: ColorConstants
-                                                    .secondaryText,
-                                                fontSize: 130.sp,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                            ),
-                                            WidgetSpan(
-                                              alignment: PlaceholderAlignment
-                                                  .bottom, // Aligns the SizedBox to the bottom
-                                              child: SizedBox(
-                                                  height: 20
-                                                      .sp), // Adjust the height as needed for spacing
-                                            ),
-                                            TextSpan(
-                                              text:
-                                                  'Mit nur einem Klick bewerben',
-                                              style: TextStyle(
-                                                color: ColorConstants
-                                                    .secondaryText,
-                                                fontSize: 30.sp,
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                  SizedBox(
-                                    width: 61.33.sp,
-                                  ),
-                                  SvgPicture.asset(
-                                    ImageConstants.lady,
-                                    height: 253.sp,
-                                  )
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
-                        Positioned(
-                          top: 280
-                              .sp, // Adjust the position of the line vertically
-                          left: 446.sp,
-
-                          child: SvgPicture.asset(
-                            ImageConstants
-                                .lineltr, // Replace with the correct path to your SVG line
-                            height: 360
-                                .sp, // Adjust the height of the line as needed
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 300
-                              .sp, // Adjust the position of the line vertically
-                          left: 617.sp,
-                          child: SvgPicture.asset(
-                            ImageConstants
-                                .linertl, // Replace with the correct path to your SVG line
-                            height: 234
-                                .sp, // Adjust the height of the line as needed
-                          ),
-                        ),
-                      ],
-                    )
+                  ? DeskstepWidget()
                   : SizedBox.shrink()
             ],
           ),
